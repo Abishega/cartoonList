@@ -7,16 +7,16 @@
       "esnext"
     ],
     "allowJs": true,
+    "jsx": "preserve",
+    "module": "commonjs", // Change to "commonjs" if it's set to "ESNext"
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "jsx": "preserve",
     "incremental": true,
     "paths": {
       "@/*": [
@@ -24,6 +24,7 @@
       ]
     },
     "types": [
+      "node",
       "jest",
       "@testing-library/jest-dom"
     ]
@@ -31,8 +32,9 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/tests/__test__"  ],
+    "**/*.tsx",
+    "src/tests/__test__"
+  ],
   "exclude": [
     "node_modules",
     "**/__tests__/**"

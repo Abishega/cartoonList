@@ -18,20 +18,35 @@
   //   moduleFileExtensions: ["js", "jsx", "ts", "tsx"], // Allow Jest to work with these file types
   //   transformIgnorePatterns: ["<rootDir>/node_modules/"], // Ensure node_modules is ignored
   // };
+  // module.exports = {
+  //   preset: 'ts-jest',
+  //      testEnvironment: 'jsdom',
+  //      transform: {
+  //       "^.+\\.js$": "babel-jest",
+  //       "^.+\\.jsx$": "babel-jest",
+  //       "^.+\\.ts$": "babel-jest",
+  //       "^.+\\.tsx$": "babel-jest",
+  //     },
+  //   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  //   transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  //   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+
+  // };
+
   module.exports = {
     preset: 'ts-jest',
-       testEnvironment: 'jsdom',
-       transform: {
-        "^.+\\.js$": "babel-jest",
-        "^.+\\.jsx$": "babel-jest",
-        "^.+\\.ts$": "babel-jest",
-        "^.+\\.tsx$": "babel-jest",
-      },
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    transformIgnorePatterns: ["<rootDir>/node_modules/"],
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
-
+    testEnvironment: 'jsdom',
+    transform: {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    },
+    transformIgnorePatterns: [
+      "/node_modules/(?!(your-esm-package|another-esm-package)/)"
+    ],
+    moduleNameMapper: {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
   };
+  
 
   
  
