@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { fetchCartoonDetails, fetchCartoonList } from '../../services/api';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { Cartoon } from '../../utils/types';
+import { Cartoon } from '../../utils/interface';
 import Image from 'next/image';
 
 

@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "jsx": "preserve",
-    "module": "commonjs", // Change to "commonjs" if it's set to "ESNext"
+    "module": "preserve", 
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,

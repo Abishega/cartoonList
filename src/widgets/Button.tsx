@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Link from 'next/link';
 
@@ -16,20 +15,32 @@ const Button: React.FC<ButtonProps> = ({ text, link, onClick, disabled = false, 
     px-8 py-3 text-white font-semibold text-xl rounded-full shadow-lg
     transition-all duration-300 transform ease-in-out hover:scale-105
     ${disabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 hover:shadow-2xl'}
-    ${fullWidth ? 'w-full' : ''} ${className}
+    ${fullWidth ? 'w-full' : ''} ${className} block
   `;
+
+  const buttonStyle = {
+    height: '3rem',    
+    minHeight: '3rem'  
+  };
 
   // If `link` prop is provided, render as a link
   if (link) {
     return (
       <Link href={link}>
-        <span className={buttonClasses}>{text}</span>
+        <span className={buttonClasses} style={buttonStyle}>
+          {text}
+        </span>
       </Link>
     );
   }
 
   return (
-    <button onClick={onClick} disabled={disabled} className={buttonClasses}>
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={buttonClasses}
+      style={buttonStyle}
+    >
       {text}
     </button>
   );

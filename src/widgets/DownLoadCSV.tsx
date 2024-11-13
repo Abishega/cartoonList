@@ -1,5 +1,5 @@
 
-import { Cartoon } from '@/utils/types';
+import { Cartoon } from '@/utils/interface';
 import React from 'react';
 
 import { AiOutlineDownload } from 'react-icons/ai';

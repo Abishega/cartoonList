@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Cartoon } from '../utils/types';
+import { Cartoon } from '../utils/interface';
 
 const API_BASE = 'https://api.sampleapis.com/cartoons/cartoons2D';
 

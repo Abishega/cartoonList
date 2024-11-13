@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Cartoon } from '../utils/types';
+import { Cartoon } from '../utils/interface';
 import Image from 'next/image';
 
 interface CardProps {

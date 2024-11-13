@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCartoonList } from '../../services/api';
-import { Cartoon } from '../../utils/types';
+import { Cartoon } from '../../utils/interface';
 import dynamic from 'next/dynamic';
 
 const Card = dynamic(() => import('../../components/Card'), { loading: () => <div>Loading...</div> });
@@ -13,6 +13,15 @@ const DownloadCSV = dynamic(() => import('../../widgets/DownLoadCSV'));
 const ITEMS_PER_PAGE = 10;
 const INITIAL_LOAD_LIMIT = 50;
 
+const genreOptions = [
+  { label: 'Action', value: 'Action' },
+  { label: 'Adventure', value: 'Adventure' },
+  { label: 'Comedy', value: 'Comedy' },
+  { label: 'Fantasy', value: 'Fantasy' },
+];
+
+const csvHeaders: (keyof Cartoon)[] = ['id', 'title', 'genre', 'rating'];
+
 const Browse: React.FC = () => {
   const [cartoons, setCartoons] = useState<Cartoon[]>([]);
   const [filteredCartoons, setFilteredCartoons] = useState<Cartoon[]>([]);
@@ -20,12 +29,12 @@ const Browse: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(0);
   const [genreFilter, setGenreFilter] = useState<string>('');
-  const [error, setError] = useState<string | null>(null); // Error state to capture any issues
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadCartoons = async () => {
       setIsLoading(true);
-      setError(null); // Reset error before fetching
+      setError(null);
       try {
         const data = await fetchCartoonList();
         const limitedData = data.slice(0, INITIAL_LOAD_LIMIT);
@@ -44,21 +53,28 @@ const Browse: React.FC = () => {
   }, []);
 
   const handleSearch = (query: string) => {
-    setError(null); // Reset error for new search attempt
-    try {
-      const filtered = cartoons.filter((cartoon) =>
-        cartoon.title.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredCartoons(filtered);
-      setCurrentPage(1);
-    } catch (err) {
-      setError('An error occurred during the search. Please try again.');
-      console.error('Error in search:', err);
+    setError(null);
+    if (query.trim() === '') {
+      // Reset to default cartoons when query is cleared
+      setFilteredCartoons(cartoons);
+      setTotalPages(Math.ceil(cartoons.length / ITEMS_PER_PAGE));
+    } else {
+      try {
+        const filtered = cartoons.filter((cartoon) =>
+          cartoon.title.toLowerCase().includes(query.toLowerCase())
+        );
+        setFilteredCartoons(filtered);
+        setTotalPages(Math.ceil(filtered.length / ITEMS_PER_PAGE));
+        setCurrentPage(1); // Reset to page 1 when search is done
+      } catch (err) {
+        setError('An error occurred during the search. Please try again.');
+        console.error('Error in search:', err);
+      }
     }
   };
 
   const handleGenreFilter = (genre: string | number) => {
-    setError(null); // Reset error before filtering
+    setError(null);
     try {
       const id = String(genre);
       setGenreFilter(id);
@@ -70,7 +86,7 @@ const Browse: React.FC = () => {
   };
 
   const filterCartoons = (genre: string) => {
-    setError(null); // Reset error for filtering action
+    setError(null);
     try {
       let filtered = cartoons;
       if (genre) {
@@ -78,6 +94,7 @@ const Browse: React.FC = () => {
       }
       setFilteredCartoons(filtered);
       setTotalPages(Math.ceil(filtered.length / ITEMS_PER_PAGE));
+      setCurrentPage(1); // Reset to the first page when a new filter is applied
     } catch (err) {
       setError('An error occurred while filtering cartoons.');
       console.error('Error filtering cartoons:', err);
@@ -85,22 +102,13 @@ const Browse: React.FC = () => {
   };
 
   const handlePageChange = (newPage: number) => {
-    setError(null); // Reset error for pagination
+    setError(null);
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     } else {
       setError('Invalid page number.');
     }
   };
-
-  const genreOptions = [
-    { label: 'Action', value: 'Action' },
-    { label: 'Adventure', value: 'Adventure' },
-    { label: 'Comedy', value: 'Comedy' },
-    { label: 'Fantasy', value: 'Fantasy' },
-  ];
-
-  const csvHeaders: (keyof Cartoon)[] = ['id', 'title', 'genre', 'rating'];
 
   return (
     <div className="p-6 bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 min-h-screen">
@@ -110,8 +118,8 @@ const Browse: React.FC = () => {
           <Filter
             label="Genre"
             filterValue={genreFilter}
-            options={genreOptions}
             onChange={handleGenreFilter}
+            options={genreOptions}
           />
           <DownloadCSV data={filteredCartoons} headers={csvHeaders} filename="cartoons.csv" />
         </div>
@@ -126,7 +134,7 @@ const Browse: React.FC = () => {
       )}
 
       {isLoading ? (
-        <Loader />
+        <Loader itemsPerPage={ITEMS_PER_PAGE} />
       ) : filteredCartoons.length === 0 && !error ? (
         <div className="text-center text-white text-xl font-semibold mt-6">
           Oops! No cartoons found for your search or filter.
