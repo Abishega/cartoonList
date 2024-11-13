@@ -59,6 +59,7 @@
     "incremental": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"] // This makes '@' resolve to the 'src' directory
     }
