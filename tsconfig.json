@@ -40,16 +40,28 @@
 //     "**/__tests__/**"
 //   ]
 // }
-
-
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ESNext",       // Important for Jest to handle ES module syntax
+    "module": "ESNext", // Important for Jest to handle ES module syntax
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "preserve",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "paths": {
+      "@/*": ["src/*"] // This makes '@' resolve to the 'src' directory
+    }
   },
   "include": [
     "src/**/*",
@@ -63,3 +75,4 @@
     "node_modules"
   ]
 }
+
