@@ -8,7 +8,7 @@ export default function Home() {
       <div className="text-center">
         <h1 className="text-white text-4xl md:text-6xl font-bold mb-8">Welcome to Cartoon World</h1>
         
-        {/* Use the generic Button component */}
+       
         <Button
           text="Explore Cartoons"
           link="/cartoon/browse"

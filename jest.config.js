@@ -21,12 +21,17 @@
   module.exports = {
     preset: 'ts-jest',
        testEnvironment: 'jsdom',
-    transform: {
-      '^.+\\.(ts|tsx)$': 'ts-jest',
-      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest" // Use babel-jest for all JS/TS files
-    },
+       transform: {
+        "^.+\\.js$": "babel-jest",
+        "^.+\\.jsx$": "babel-jest",
+        "^.+\\.ts$": "babel-jest",
+        "^.+\\.tsx$": "babel-jest",
+      },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     transformIgnorePatterns: ["<rootDir>/node_modules/"],
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
+
   };
+
   
+ 

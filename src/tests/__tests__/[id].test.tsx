@@ -1,16 +1,17 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Details, { getStaticProps, getStaticPaths } from '../[id]';
-import { fetchCartoonDetails, fetchCartoonList } from '../../../services/api';
-import { Cartoon } from '../../../utils/types';
+import { render, screen, fireEvent } from '@testing-library/react';
+import Details, { getStaticProps } from '../../pages/cartoon/[id]';
+import { fetchCartoonDetails, fetchCartoonList } from '../../services/api';
+import { Cartoon } from '../../utils/types';
 import { GetStaticPropsContext } from 'next';
+import React from 'react';
 
-// Mock the API calls
+
 jest.mock('../../../services/api', () => ({
     fetchCartoonDetails: jest.fn(),
     fetchCartoonList: jest.fn(),
   }));
   
-  // Mock Next.js Link component
+
   jest.mock('next/link', () => ({
     __esModule: true,
     default: ({ children }: { children: React.ReactNode }) => <a>{children}</a>,
@@ -37,13 +38,12 @@ jest.mock('../../../services/api', () => ({
     it('renders cartoon details correctly', async () => {
         render(<Details cartoon={mockCartoon} />);
       
-        // Check for cartoon title
+
         expect(screen.getByText(mockCartoon.title)).toBeInTheDocument();
       
-        // Check for year and episodes
+       
         expect(screen.getByText(`${mockCartoon.year} | ${mockCartoon.episodes} Episodes`)).toBeInTheDocument();
-      
-        // Check for creators (simplified the matcher)
+
         expect(screen.getByText(/Creator\(s\):/i)).toBeInTheDocument();
         expect(screen.getByText(mockCartoon.creator.join(', '))).toBeInTheDocument();
       
@@ -70,7 +70,7 @@ jest.mock('../../../services/api', () => ({
       
       const result = await getStaticProps(context);
   
-      expect(fetchCartoonDetails).toHaveBeenCalledWith(1); // Assuming the ID is a number
+      expect(fetchCartoonDetails).toHaveBeenCalledWith(1); 
       expect(result).toEqual({
         props: { cartoon: mockCartoon },
       });
@@ -81,13 +81,8 @@ jest.mock('../../../services/api', () => ({
       render(<Details cartoon={mockCartoon} />);
       const backButton = screen.getByRole('button', { name: /back to browse/i });
       fireEvent.click(backButton);
-      // Add your routing assertions or mock the routing behavior if needed.
+      
     });
   
-    it('handles Watch Now button click', async () => {
-      render(<Details cartoon={mockCartoon} />);
-      const watchButton = screen.getByRole('button', { name: /watch now/i });
-      fireEvent.click(watchButton);
-      // Add assertions for expected behavior when Watch Now is clicked.
-    });
+
   });

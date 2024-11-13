@@ -3,9 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Card from '../Card';
 import { Cartoon } from '../../utils/types';
-import Link from 'next/link';
-
-// Mock next/link in test file
 
 
   jest.mock('next/link', () => ({
@@ -33,33 +30,30 @@ const mockCartoon: Cartoon = {
 test('renders the Card component with cartoon data', () => {
   render(<Card cartoon={mockCartoon} />);
 
-  // Check title
+
   expect(screen.getByText(mockCartoon.title)).toBeInTheDocument();
 
-  // Check image
   const imgElement = screen.getByRole('img', { name: mockCartoon.title });
   expect(imgElement).toBeInTheDocument();
   expect(imgElement).toHaveAttribute('src', mockCartoon.image);
 
-  // Check star emoji badge
   expect(screen.getByRole('img', { name: 'star' })).toBeInTheDocument();
 });
 
 test('displays fallback image if the original image fails to load', () => {
   render(<Card cartoon={mockCartoon} />);
 
-  // Simulate image error
+ 
   const imgElement = screen.getByRole('img', { name: mockCartoon.title });
   fireEvent.error(imgElement);
 
-  // Check fallback image
+
   expect(imgElement).toHaveAttribute('src', '/fallback-image.jpg');
 });
 
 test('wraps the card with a Link component pointing to the correct URL', () => {
   render(<Card cartoon={mockCartoon} />);
 
-  // Check href attribute
   const linkElement = screen.getByRole('link');
   expect(linkElement).toHaveAttribute('href', `/cartoon/${mockCartoon.id}`);
 });

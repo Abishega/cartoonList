@@ -1,8 +1,12 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { fetchCartoonDetails, fetchCartoonList } from '../../services/api';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { Cartoon } from '../../utils/types';
-import Button from '../../widgets/Button';
+import Image from 'next/image';
+
+
+const Button = dynamic(() => import('../../widgets/Button'), { loading: () => <div>Loading Button...</div> });
 
 interface DetailsProps {
   cartoon: Cartoon;
@@ -20,10 +24,12 @@ const Details: React.FC<DetailsProps> = ({ cartoon }) => {
 
       {/* Cartoon Image */}
       <div className="flex justify-center mb-8">
-        <img
+        <Image
+         height={200}
+          width={200}
           src={cartoon.image}
           alt={cartoon.title}
-          className="w-full sm:w-80 h-96 object-cover rounded-lg shadow-2xl"
+          className="w-full sm:w-80 h-96 object-cover rounded-lg shadow-2xl "
         />
       </div>
 

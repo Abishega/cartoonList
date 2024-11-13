@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Cartoon } from '../utils/types';
+import Image from 'next/image';
 
 interface CardProps {
   cartoon: Cartoon;
@@ -14,7 +15,9 @@ const Card: React.FC<CardProps> = ({ cartoon }) => {
     <div className="relative shadow-lg rounded-xl overflow-hidden transform transition duration-300 ease-in-out hover:scale-105 hover:rotate-2 hover:shadow-2xl hover:cursor-pointer z-10">
     <Link href={`/cartoon/${cartoon.id}`} className="block p-4 flex flex-col items-center relative">
       {/* Image with fallback on error */}
-      <img
+      <Image
+      width={200}
+      height={200}
         src={isImageError ? '/fallback-image.jpg' : cartoon.image}
         alt={cartoon.title}
         onError={() => setIsImageError(true)}
