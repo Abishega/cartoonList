@@ -1,6 +1,6 @@
 
 export interface Cartoon {
-    id: number;
+      id: string | number; 
     title: string;
     year: number;
     creator: string[];

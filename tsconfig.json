@@ -1,42 +1,65 @@
+// {
+//   "compilerOptions": {
+//     "target": "ES2017",
+//     "lib": [
+//       "dom",
+//       "dom.iterable",
+//       "esnext"
+//     ],
+//     "allowJs": true,
+//     "jsx": "preserve",
+//     "module": "preserve", 
+//     "esModuleInterop": true,
+//     "allowSyntheticDefaultImports": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "noEmit": true,
+//     "moduleResolution": "bundler",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "incremental": true,
+//     "paths": {
+//       "@/*": [
+//         "./src/*"
+//       ]
+//     },
+//     "types": [
+//       "node",
+//       "jest",
+//       "@testing-library/jest-dom"
+//     ]
+//   },
+//   "include": [
+//     "next-env.d.ts",
+//     "**/*.ts",
+//     "**/*.tsx",
+//     "src/tests/__test__"
+//   ],
+//   "exclude": [
+//     "node_modules",
+//     "**/__tests__/**"
+//   ]
+// }
+
+
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "jsx": "preserve",
-    "module": "preserve", 
+    "target": "ES6",
+    "module": "ESNext",       // Important for Jest to handle ES module syntax
+    "moduleResolution": "node",
+    "jsx": "react",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "types": [
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ]
+    "skipLibCheck": true
   },
   "include": [
+    "src/**/*",
+    "jest.setup.js",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src/tests/__test__"
   ],
   "exclude": [
-    "node_modules",
-    "**/__tests__/**"
+    "node_modules"
   ]
 }

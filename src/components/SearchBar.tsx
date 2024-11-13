@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import InputField from '@/widgets/InputField';
+import InputField from '../widgets/InputField'
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
